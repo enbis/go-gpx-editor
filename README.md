@@ -1,4 +1,4 @@
-# CobraGpx
+# Go Gpx Editor
 
 If you, like me, occasionally forget the Garmin turned on at the end of the lap, or turn it on too soon, this simple solution could help you. It's a personal project with the aim of generating a new GPX file starting from a source file, mainly developed to test some technologies I would like to improve.
 
