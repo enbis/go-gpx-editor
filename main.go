@@ -1,6 +1,6 @@
 package main
 
-import "bitbucket.org/enrico/cobragpx/cmd"
+import "github.com/enbis/go-gpx-editor/cmd"
 
 func main() {
 	cmd.Execute()

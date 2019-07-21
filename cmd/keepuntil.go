@@ -15,10 +15,9 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
-	"bitbucket.org/enrico/cobragpx/editorgpx"
+	"github.com/enbis/go-gpx-editor/editorgpx"
 	"github.com/spf13/cobra"
 )
 
@@ -35,7 +34,7 @@ var keepuntilCmd = &cobra.Command{
 	go run main.go keepuntil -p=/media/user/DATA/activity.gpx -t=1h6m0s`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("keepuntil called")
+
 		//hh:mm:ss
 		filepath, err := cmd.Flags().GetString("path")
 		if err != nil {

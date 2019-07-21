@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"log"
 
-	"bitbucket.org/enrico/cobragpx/editorgpx"
+	"github.com/enbis/go-gpx-editor/editorgpx"
 	"github.com/spf13/cobra"
 )
 
@@ -45,7 +45,7 @@ var keepfromCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		editorgpx.KeepUntil(filepath, time)
+		editorgpx.KeepFrom(filepath, time)
 	},
 }
 
