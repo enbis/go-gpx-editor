@@ -6,7 +6,7 @@ This GPX editor is wrote in Golang. The Cobra package is used to provide a simpl
 
 This solution is `work in progress`, there are a lot of commands I would like to integrate here.
 
-I tested it with Garmin GPX file standard, in Linux O.S.  
+I tested it with file GPX extracted from Garmin Connect, in Linux O.S.  
 
 ## How does it work?
 
