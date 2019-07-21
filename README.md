@@ -26,5 +26,4 @@ Extract the Garmin GPX file to modify, get the path of the file, and run one of 
 
 ## Next steps
 
-- config.yml to basic settings
 - Docker containerization and gRPC integration. 
