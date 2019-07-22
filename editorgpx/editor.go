@@ -28,6 +28,24 @@ func vipersetting() {
 
 }
 
+func Merge(files []string) {
+	fmt.Println("dentro editor ", files)
+	var wg sync.WaitGroup
+
+	// g_full := []*gpx.GPX{}
+	// for _, file := range files {
+	// 	g, err := gpx.ParseFile(file)
+	// 	checkerror(err)
+	// 	g_full = append(g_full, g)
+	// }
+
+	wg.Add(1)
+
+	go mergeProcess(files, wg)
+
+	wg.Wait()
+}
+
 func KeepFrom(filepath string, starttime string) {
 
 	var wg sync.WaitGroup
@@ -80,6 +98,22 @@ func checkerror(err error) {
 	}
 }
 
+func mergeProcess(files []string, wg sync.WaitGroup) {
+
+	fullFilesin := []*os.File{}
+	var fileout *os.File
+
+	for i, file := range files {
+		filein, newFile := openF(file)
+		if i == 0 {
+			fileout = writeF(newFile)
+		}
+		fullFilesin = append(fullFilesin, filein)
+	}
+	algoMerge(fullFilesin, fileout, wg)
+
+}
+
 func keepUntilProcess(filepath string, stop int, wg sync.WaitGroup) {
 	filein, newFile := openF(filepath)
 	fileout := writeF(newFile)
@@ -107,6 +141,38 @@ func writeF(newfile string) *os.File {
 	fwrite, err := os.Create(newfile)
 	checkerror(err)
 	return fwrite
+}
+
+func algoMerge(filein []*os.File, fileout *os.File, wg sync.WaitGroup) {
+
+	var write bool
+	for index, file := range filein {
+		fmt.Println(index)
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			text := strings.TrimSpace(scanner.Text())
+			if index == 0 {
+				if text == "</trkseg>" {
+					break
+				}
+			} else if index == len(filein)-1 {
+				if strings.HasPrefix(text, "</trkpt>") {
+					write = true
+				}
+				if !write {
+					continue
+				}
+			}
+
+			fmt.Println(text)
+			_, err := fileout.WriteString(fmt.Sprintf("%s\n", text))
+			checkerror(err)
+		}
+		defer file.Close()
+	}
+
+	fileout.Sync()
+	wg.Done()
 }
 
 func algoKeepFrom(filein *os.File, fileout *os.File, start int, wg sync.WaitGroup) {

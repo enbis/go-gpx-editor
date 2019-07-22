@@ -20,9 +20,12 @@ Extract the Garmin GPX file to modify, get the path of the file, and run one of 
 - **keepfrom**: keeps unmodified the GPX trace from the start time setted via CLI, the rest of the lap is cutted. 
 `go run main.go keepfrom -p=/media/user/DATA/activity.gpx -t=0h6m0s`
 
+- **merge**: combines several GPX tracks, and produces one single track.
+`go run main.go merge --path=/media/user/DATA/activity_1.gpx --path=/media/user/DATA/activity_2.gpx`
+
 ## Commands in progress
 
-- `mergetwo`
+- `extractgpx`
 
 ## Next steps
 
